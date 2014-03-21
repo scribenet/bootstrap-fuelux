@@ -1,13 +1,10 @@
 {
 	"dependencies": {
-		"jquery": ">= 1.9.0"
+		"jquery": ">= 2.1.0"
 	},
 	"ignore": [
 		"**/.*",
 		"_*",
-		"lib",
-		"node_modules",
-		"testem.json"
 	],
 	"keywords": [
 		"css",
