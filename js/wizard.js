@@ -138,7 +138,7 @@
 				}
 			}
 
-			this.$element.trigger('changed');
+			this.$element.trigger('fuelux:changed');
 		},
 
 		stepclicked: function (e) {
@@ -153,8 +153,9 @@
 			}
 
 			if( canMovePrev ) {
-				var evt = $.Event('stepclick');
+				var evt = $.Event('fuelux:stepclick');
 				this.$element.trigger(evt, {step: index + 1});
+
 				if (evt.isDefaultPrevented()) return;
 
 				this.currentStep = (index + 1);
@@ -168,9 +169,15 @@
 				canMovePrev = false;
 			}
 			if (canMovePrev) {
-				var e = $.Event('change');
+				var e = $.Event('fuelux:change');
 				this.$element.trigger(e, {step: this.currentStep, direction: 'previous'});
+				
 				if (e.isDefaultPrevented()) return;
+
+				var e2 = $.Event('fuelux:change:step:'+this.currentStep);
+				this.$element.trigger(e2, {step: this.currentStep, direction: 'previous'});
+
+				if (e2.isDefaultPrevented()) return;
 
 				this.currentStep -= 1;
 				this.setState();
@@ -182,16 +189,21 @@
 			var lastStep = (this.currentStep === this.numSteps);
 
 			if (canMoveNext) {
-				var e = $.Event('change');
+				var e = $.Event('fuelux:change');
 				this.$element.trigger(e, {step: this.currentStep, direction: 'next'});
 
 				if (e.isDefaultPrevented()) return;
+
+				var e2 = $.Event('fuelux:change:step:'+this.currentStep);
+				this.$element.trigger(e2, {step: this.currentStep, direction: 'next'});
+
+				if (e2.isDefaultPrevented()) return;
 
 				this.currentStep += 1;
 				this.setState();
 			}
 			else if (lastStep) {
-				this.$element.trigger('finished');
+				this.$element.trigger('fuelux:finished');
 			}
 		},
 
