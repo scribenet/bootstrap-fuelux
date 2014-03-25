@@ -212,7 +212,6 @@
 				var currentStep        = this.$element.find(currentSelector);
 				var currentStepContent = $(currentStep.data().target);
 
-				console.log('fuelux:changeto:step:'+currentStepContent.attr('id'));
 				var e3 = $.Event('fuelux:changeto:step:'+currentStepContent.attr('id'));
 				this.$element.trigger(e3, {step: this.currentStep, direction: 'next'});
 
