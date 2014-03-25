@@ -179,6 +179,15 @@
 
 				if (e2.isDefaultPrevented()) return;
 
+				var currentSelector    = '.steps li:eq(' + (this.currentStep) + ')';
+				var currentStep        = this.$element.find(currentSelector);
+				var currentStepContent = $(currentStep.data().target);
+
+				var e3 = $.Event('fuelux:changeto:step:'+currentStepContent.attr('id'));
+				this.$element.trigger(e3, {step: this.currentStep, direction: 'previous'});
+
+				if (e3.isDefaultPrevented()) return;
+
 				this.currentStep -= 1;
 				this.setState();
 			}
@@ -198,6 +207,16 @@
 				this.$element.trigger(e2, {step: this.currentStep, direction: 'next'});
 
 				if (e2.isDefaultPrevented()) return;
+
+				var currentSelector    = '.steps li:eq(' + (this.currentStep) + ')';
+				var currentStep        = this.$element.find(currentSelector);
+				var currentStepContent = $(currentStep.data().target);
+
+				console.log('fuelux:changeto:step:'+currentStepContent.attr('id'));
+				var e3 = $.Event('fuelux:changeto:step:'+currentStepContent.attr('id'));
+				this.$element.trigger(e3, {step: this.currentStep, direction: 'next'});
+
+				if (e3.isDefaultPrevented()) return;
 
 				this.currentStep += 1;
 				this.setState();
